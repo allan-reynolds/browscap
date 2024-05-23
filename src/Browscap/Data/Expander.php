@@ -381,6 +381,7 @@ class Expander
      * @return array<mixed>
      *
      * @throws OutOfBoundsException
+     * @throws \UaDeviceType\Exception\NotFoundException
      */
     private function getDeviceProperties(string $devicekey, bool $standard): array
     {
@@ -423,6 +424,7 @@ class Expander
      * @return array<int, array<bool|string>|bool>
      *
      * @throws OutOfBoundsException
+     * @throws \UaDeviceType\Exception\NotFoundException
      */
     private function getBrowserProperties(string $browserkey, bool $lite, bool $standard): array
     {
