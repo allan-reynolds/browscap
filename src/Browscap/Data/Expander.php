@@ -9,7 +9,6 @@ use Generator;
 use OutOfBoundsException;
 use Psr\Log\LoggerInterface;
 use UaBrowserType\TypeLoader as BrowserTypeLoader;
-use UaDeviceType\NotFoundException;
 use UaDeviceType\TypeLoader as DeviceTypeLoader;
 use UnexpectedValueException;
 
@@ -381,7 +380,6 @@ class Expander
      * @return array<mixed>
      *
      * @throws OutOfBoundsException
-     * @throws \UaDeviceType\Exception\NotFoundException
      */
     private function getDeviceProperties(string $devicekey, bool $standard): array
     {
@@ -409,7 +407,7 @@ class Expander
             } else {
                 $deviceProperties['Device_Type'] = $deviceType->getName();
             }
-        } catch (NotFoundException $e) {
+        } catch (\UaDeviceType\Exception\NotFoundException $e) {
             $this->logger->critical($e);
 
             $deviceProperties['isMobileDevice'] = false;
@@ -447,7 +445,7 @@ class Expander
             $browserProperties['isSyndicationReader'] = $browserType->isSyndicationReader();
             $browserProperties['Crawler']             = $browserType->isBot();
             $browserProperties['Browser_Type']        = ($browserType->getName() ?? 'unknown');
-        } catch (\UaBrowserType\NotFoundException $e) {
+        } catch (\UaBrowserType\Exception\NotFoundException $e) {
             $this->logger->critical($e);
 
             $browserProperties['isSyndicationReader'] = false;
