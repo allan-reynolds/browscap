@@ -9,8 +9,8 @@ use Generator;
 use OutOfBoundsException;
 use Psr\Log\LoggerInterface;
 use UaBrowserType\Exception\NotFoundException as BrowserNotFoundException;
-use UaDeviceType\Exception\NotFoundException as DeviceNotFoundException;
 use UaBrowserType\TypeLoader as BrowserTypeLoader;
+use UaDeviceType\Exception\NotFoundException as DeviceNotFoundException;
 use UaDeviceType\TypeLoader as DeviceTypeLoader;
 use UnexpectedValueException;
 
