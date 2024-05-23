@@ -8,6 +8,8 @@ use Browscap\Data\Helper\TrimProperty;
 use Generator;
 use OutOfBoundsException;
 use Psr\Log\LoggerInterface;
+use UaBrowserType\Exception\NotFoundException as BrowserNotFoundException;
+use UaDeviceType\Exception\NotFoundException as DeviceNotFoundException;
 use UaBrowserType\TypeLoader as BrowserTypeLoader;
 use UaDeviceType\TypeLoader as DeviceTypeLoader;
 use UnexpectedValueException;
@@ -407,7 +409,7 @@ class Expander
             } else {
                 $deviceProperties['Device_Type'] = $deviceType->getName();
             }
-        } catch (\UaDeviceType\Exception\NotFoundException $e) {
+        } catch (DeviceNotFoundException $e) {
             $this->logger->critical($e);
 
             $deviceProperties['isMobileDevice'] = false;
@@ -422,7 +424,6 @@ class Expander
      * @return array<int, array<bool|string>|bool>
      *
      * @throws OutOfBoundsException
-     * @throws \UaDeviceType\Exception\NotFoundException
      */
     private function getBrowserProperties(string $browserkey, bool $lite, bool $standard): array
     {
@@ -445,7 +446,7 @@ class Expander
             $browserProperties['isSyndicationReader'] = $browserType->isSyndicationReader();
             $browserProperties['Crawler']             = $browserType->isBot();
             $browserProperties['Browser_Type']        = ($browserType->getName() ?? 'unknown');
-        } catch (\UaBrowserType\Exception\NotFoundException $e) {
+        } catch (BrowserNotFoundException $e) {
             $this->logger->critical($e);
 
             $browserProperties['isSyndicationReader'] = false;
